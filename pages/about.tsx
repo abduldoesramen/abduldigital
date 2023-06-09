@@ -2,7 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = async (...args: Parameters<typeof fetch>) => {
+  const response = await fetch(...args);
+  return response.json();
+};
 
 export default function About() {
   const { data, error } = useSWR("/api/about", fetcher);
